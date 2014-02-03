@@ -6,7 +6,9 @@
 package app.managers;
 
 import app.domain.BallisticInbound;
+import app.interfaces.Detector;
 import java.util.ArrayList;
+import utils.PropertyManager;
 
 /**
  *
@@ -44,5 +46,16 @@ public class InboundManager {
     
     public void removeEntry(BallisticInbound bi){
         entries.remove(bi);
+    }
+    
+    public ArrayList<BallisticInbound> detect(Detector d){
+        ArrayList<BallisticInbound> detected = new ArrayList<>();
+        double minAlt = PropertyManager.Instance().getDoubleProperty("MINALTITUDE");
+        for(BallisticInbound bi: entries){
+            if(d.getLocation().distance(bi.getLocation()) < d.getRange() && bi.getLocation().getZ() < minAlt){
+                detected.add(bi);
+            }
+        }
+        return detected;
     }
 }

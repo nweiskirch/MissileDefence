@@ -5,6 +5,7 @@
  */
 package app.domain;
 
+import app.managers.DetectorManager;
 import app.managers.InboundManager;
 import app.utils.RandomGenerator;
 import display.interfaces.Displayable;
@@ -96,19 +97,22 @@ public class BallisticInbound implements Displayable {
         
     }
 
-    public void arrived(){
+    private void arrived(){
         if(isDecoy){
             symbol = "O";
             SoundUtility.getInstance().playSound("Crunch.wav");
             LoggingManager.logInfo("Decoy has reached destination, ID = " + id);
         }
         else{
-            //Apply Ground Dammage
+            applyGroundDamage();
             symbol = "X";
             SoundUtility.getInstance().playSound("Explosion.wav");
             LoggingManager.logInfo("Ballistic Inbound Misssile has reached destination, ID = " + id);
         }
         InboundManager.getInstance().removeEntry(this);
         DisplayManager.getInstance().removeContent(this, PropertyManager.Instance().getIntProperty("REMOVALDELAY"));
+    }
+    private void applyGroundDamage(){
+        DetectorManager.getInstance().applyBlastDamage(location);
     }
 }

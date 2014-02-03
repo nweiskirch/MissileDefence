@@ -2,12 +2,18 @@ package app;
 
 import app.domain.BallisticInbound;
 import app.domain.DecoyingBallisticInbound;
+import app.domain.Launcher;
+import app.domain.mobile.MobileDetector;
+import app.domain.fixed.FixedDetector;
 import app.managers.InboundManager;
+import app.managers.DetectorManager;
 import app.utils.RandomGenerator;
 import display.interfaces.ViewFrameListener;
 import display.managers.DisplayManager;
 import utils.LoggingManager;
 import utils.Point3D;
+
+import java.util.ArrayList;
 
 public class TheApp implements Runnable, ViewFrameListener
 {
@@ -31,6 +37,7 @@ public class TheApp implements Runnable, ViewFrameListener
                     if (!paused)
                     {
                         InboundManager.getInstance().update(1000);
+                        DetectorManager.getInstance().update(1000);
                     }
                     DisplayManager.getInstance().updateDisplay();
                 }
@@ -48,224 +55,193 @@ public class TheApp implements Runnable, ViewFrameListener
         System.exit(0);
     }
 
-    public void runIntegratedTests() throws Exception
-    {
-        try
-        {
-            runBITests();
-            runDBITests();
-            runMouseTests();
 
-            waitUntilNoInbounds();
-
-
-            DisplayManager.getInstance().popUpInfo("Tests Complete. \n\nPlease press the 'Stop' Button to Exit\n\n");
-            LoggingManager.logInfo("Tests Complete.");
-
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private void runBITests() throws InterruptedException
+    public void runFDTests() throws InterruptedException
     {
         String message;
+	    acceptPause();
 
-        acceptPause();
-        message = "Test 1: Creating a new BallisticInbound (with Sound Effect) - Screen Symbol is a Green 'B'";
+        ArrayList associatedLaunchers = new ArrayList();
+        associatedLaunchers.add(new Launcher());
+	    associatedLaunchers.add(new Launcher());
+
+        message = "Test 1: Creating a new FixedDetector - Screen Symbol is a Red 'FD' (No Sounds)";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        BallisticInbound d = new BallisticInbound(new Point3D(300.0, 50.0, 50000.0), new Point3D(300.0, 550.0, 0.0),
-                                                  150.0, "Ballistic Inbound", false);
-        Thread.sleep(1000);
+        new FixedDetector(new Point3D(300.0, 150.0, 0.0), "Fixed Detector 1", 20000.0, associatedLaunchers);
+	    acceptPause();
+        Thread.sleep(2000);
+	    acceptPause();
         LoggingManager.logInfo("Test 1: Completed");
 
 
-        message = "Test 2: BallisticInbound Movement Test - 3 seconds";
+
+        message = "Test 2: FixedDetector 'update' Test - No Detections - No Visible Results";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
+	    acceptPause();
         Thread.sleep(3000);
-        acceptPause();
+	    acceptPause();
         LoggingManager.logInfo("Test 2: Completed");
 
 
-        message = "Test 3: BallisticInbound Alter Course Test (a Small Direction Change will Result)";
+        message = "Test 3: FixedDetector Detection Test - BallisticInbound Should Be Detected (detections seen in  printed log)";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
-        Thread.sleep(1500);
-        d.alterCourse();
-        Thread.sleep(1500);
+	    new BallisticInbound(new Point3D(100.0, 350.0, 8000.0),
+	                                               new Point3D(300.0, 150.0, 0.0), 150,
+	                                               "Ballistic Inbound 1", false);
+	    acceptPause();
+        Thread.sleep(1000);
         acceptPause();
         LoggingManager.logInfo("Test 3: Completed");
 
 
-        message = "Test 4: BallisticInbound Lock Detected Test (No Effect)";
+        message = "Test 4: FixedDetector Destruction Test - BallisticInbound Destroys FixedDetector - Sounds Play";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
         acceptPause();
-        Thread.sleep(1500);
-        d.lockDetected(d.getLocation());
-        Thread.sleep(1500);
+        waitUntilNoInbounds();
         acceptPause();
         LoggingManager.logInfo("Test 4: Completed");
 
 
-        message = "Test 5: BallisticInbound Self Destruct Test (with Sound Effect)\n" +
-                  "Screen Symbol Changed from Yellow 'B' to Yellow 'x'";
+        message = "Test 5: Creating Another FixedDetector - Screen Symbol is a Red 'FD'";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
-        Thread.sleep(1500);
-        d.selfDestruct();
-        Thread.sleep(1500);
-        acceptPause();
+        new FixedDetector(new Point3D(200.0, 250.0, 0.0), "Fixed Detector 2", 20000.0, associatedLaunchers);
+	    acceptPause();
+        Thread.sleep(3000);
+	    acceptPause();
         LoggingManager.logInfo("Test 5: Completed");
 
-        message = "Test 6: BallisticInbound - Full Flight With Detonation Test (Single) - With 2 Sound Effects\n" +
-                  "Screen Symbol Shifts from Green to Red";
-        DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
-        LoggingManager.logInfo(message);
-        new BallisticInbound(new Point3D(20.0, 200.0, 50000.0), new Point3D(550.0, 550.0, 0.0),
-                             250.0, "Ballistic Inbound", false);
-        acceptPause();
-        waitUntilNoInbounds();
-        acceptPause();
-        LoggingManager.logInfo("Test 6: Completed");
 
-        message = "Test 7: BallisticInbound - Full Flight With Detonation Test (Multiple) - With Many Sound Effects\n" +
-                  "Screen Symbols Shift from Green to Red";
+	    message = "Test 6: FixedDetector Detection Test - BallisticInbound Should Be Not Detected (no detections seen in printed log).";
+	    DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
+	    LoggingManager.logInfo(message);
+		new BallisticInbound(new Point3D(400.0, 450.0, 25000.0),
+		                                           new Point3D(200.0, 250.0, 0.0), 150,
+		                                           "Ballistic Inbound 2", false);
+		acceptPause();
+	    Thread.sleep(2000);
+	    acceptPause();
+	    LoggingManager.logInfo("Test 6: Completed");
+
+
+        message = "Test 7: FixedDetector Detection Test - BallisticInbound Moves into Detection Range & Detonates - (detections seen in printed log).";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        new BallisticInbound(new Point3D(100.0, 20.0, 50000.0), new Point3D(100.0, 550.0, 0.0),
-                             250.0, "Ballistic Inbound 1", false);
-        new BallisticInbound(new Point3D(200.0, 120.0, 45000.0), new Point3D(200.0, 550.0, 0.0),
-                             250.0, "Ballistic Inbound 2", false);
-        new BallisticInbound(new Point3D(300.0, 220.0, 40000.0), new Point3D(300.0, 550.0, 0.0),
-                             250.0, "Ballistic Inbound 3", false);
-        new BallisticInbound(new Point3D(400.0, 320.0, 35000.0), new Point3D(400.0, 550.0, 0.0),
-                             250.0, "Ballistic Inbound 4", false);
         acceptPause();
         waitUntilNoInbounds();
         acceptPause();
         LoggingManager.logInfo("Test 7: Completed");
-        acceptPause();
 
     }
 
-    private void runDBITests() throws InterruptedException
+    public void runMDTests() throws InterruptedException
     {
-        acceptPause();
         String message;
-        message = "Test 8: Creating a new DecoyingBallisticInbound (with Sound Effect) - Screen Symbol is 'B'";
+
+        ArrayList associatedLaunchers = new ArrayList();
+        associatedLaunchers.add(new Launcher());
+	    associatedLaunchers.add(new Launcher());
+
+        message = "Test 8: Creating a new MobileDetector - Screen Symbol is a Red 'MD'";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        DecoyingBallisticInbound di = new DecoyingBallisticInbound(new Point3D(30.0, 500.0, 50000.0), new Point3D(420.0, 50.0, 0.0),
-                                                                   150.0, "Ballistic Inbound", 5, false);
-        Thread.sleep(1000);
+        MobileDetector md = new MobileDetector(new Point3D(250.0, 200.0, 0.0), new Point3D(100.0, 350.0, 0.0),
+                                               3.0, "Mobile Detector 1", 20000.0, associatedLaunchers);
+        Thread.sleep(3000);
         LoggingManager.logInfo("Test 8: Completed");
 
 
-        message = "Test 9: DecoyingBallisticInbound Movement Test - 3 seconds";
+
+        message = "Test 9: MobileDetector Update Test - No Detections - Detector Moves";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
-        Thread.sleep(3000);
-        acceptPause();
+	    acceptPause();
+        Thread.sleep(2000);
+	    acceptPause();
         LoggingManager.logInfo("Test 9: Completed");
 
-
-        message = "Test 10: DecoyingBallisticInbound Alter Course Test (a Small Direction Change will Result)";
+        message = "Test 10: MobileDetector Movement Test - Destination Reached - Moves to New Destination";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
-        Thread.sleep(1500);
-        di.alterCourse();
-        Thread.sleep(1500);
-        acceptPause();
+	    acceptPause();
+        Thread.sleep(4000);
+	    acceptPause();
         LoggingManager.logInfo("Test 10: Completed");
 
-
-        message = "Test 11: DecoyingBallisticInbound Lock Detected Test (5 Decoy's will be Deployed with Sound Effects)";
+        message = "Test 11: MobileDetector Detection - Destroy";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
-        Thread.sleep(1500);
-        di.lockDetected(di.getLocation());
-        Thread.sleep(1500);
+	    acceptPause();
+	    md.destroy();
+        Thread.sleep(1000);
         acceptPause();
         LoggingManager.logInfo("Test 11: Completed");
 
-
-        message = "Test 12: DecoyingBallisticInbound Self Destruct Test (with Sound Effect)\n" +
-                  "Screen Symbol Changed from Yellow 'B' to Yellow 'x'\n" +
-                  "Decoys Complete their Flight and shift from Yellow to Red (with Sound Effect on Impact)";
+        message = "Test 12: Creating a new MobileDetector - Set speed to 0.0 (No movement seen).";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        acceptPause();
-        Thread.sleep(500);
-        di.selfDestruct();
-        waitUntilNoInbounds();
-        acceptPause();
-        LoggingManager.logInfo("Test 12: Completed");
-
-        message = "Test 13: DecoyingBallisticInbound - Full Flight With Detonation Test (Single) - With 2 Sound Effects\n" +
-                  "Screen Symbol Shifts from Green to Red";
-        DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
-        LoggingManager.logInfo(message);
-        new DecoyingBallisticInbound(new Point3D(450.0, 400.0, 50000.0), new Point3D(250.0, 150.0, 0.0),
-                                     250.0, "Ballistic Inbound", 5, false);
-        acceptPause();
-        waitUntilNoInbounds();
-        acceptPause();
+        md = new MobileDetector(new Point3D(250.0, 550.0, 0.0), new Point3D(70.0, 405.0, 0.0),
+                                               0.0, "Mobile Detector 2", 20000.0, associatedLaunchers);
+	    acceptPause();
+        Thread.sleep(2000);
+	    acceptPause();
         LoggingManager.logInfo("Test 13: Completed");
 
-        message = "Test 14: BallisticInbound - Full Flight With Detonation Test (Multiple) - With Many Sound Effects\n" +
-                  "Screen Symbols Shift from Green to Red";
+
+	    message = "Test 13: MobileDetector Detection Test - New BallisticInbound Should Be Detected (detections seen in printed log).";
+	    DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
+	    LoggingManager.logInfo(message);
+		new BallisticInbound(new Point3D(75.0, 300.0, 5000.0),
+		                                           new Point3D(250.0, 550.0, 0.0), 200,
+		                                           "Ballistic Inbound 3", false);
+		acceptPause();
+	    Thread.sleep(1000);
+	    acceptPause();
+	    LoggingManager.logInfo("Test 13: Completed");
+
+
+        message = "Test 14: MobileDetector Destruction Test - BallisticInbound Destroys MobileDetector";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        new DecoyingBallisticInbound(new Point3D(100.0, 550.0, 50000.0), new Point3D(100.0, 50.0, 0.0),
-                                     250.0, "Ballistic Inbound 1", 5, false);
-        new DecoyingBallisticInbound(new Point3D(200.0, 550.0, 45000.0), new Point3D(200.0, 100.0, 0.0),
-                                     250.0, "Ballistic Inbound 2", 5, false);
-        new DecoyingBallisticInbound(new Point3D(300.0, 550.0, 40000.0), new Point3D(300.0, 150.0, 0.0),
-                                     250.0, "Ballistic Inbound 3", 5, false);
-        new DecoyingBallisticInbound(new Point3D(400.0, 550.0, 35000.0), new Point3D(400.0, 200.0, 0.0),
-                                     250.0, "Ballistic Inbound 4", 5, false);
         acceptPause();
         waitUntilNoInbounds();
+        acceptPause();
         LoggingManager.logInfo("Test 14: Completed");
 
-    }
-
-    private void runMouseTests() throws InterruptedException
-    {
-        String message;
-        message = "Test 15: Mouse-Click Missile Creation Test\n\n" +
-                  "Click (and hold) the LEFT Mouse Button Anywhere in the View Frame,\n" +
-                  "Then Drag the Mouse (button still down) to a New Location then Release the Button\n\n" +
-                  "A new BallisticInbound will be created using the 'click' as the start-point, and the\n" +
-                  "'release' as the destination";
+        message = "Test 15: Creating Another MobileDetector - Set Speed to 0.0 (No movement seen).";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        waitforAnyInbounds();
-        waitUntilNoInbounds();
+	    md = new MobileDetector(new Point3D(450.0, 450.0, 0.0), new Point3D(70.0, 405.0, 0.0),
+                                               0.0, "Mobile Detector 3", 20000.0, associatedLaunchers);
+        acceptPause();
+        Thread.sleep(1000);
+        acceptPause();
         LoggingManager.logInfo("Test 15: Completed");
 
-
-        message = "Test 16: Mouse-Click Missile Creation Test\n\n" +
-                  "Click (and hold) the RIGHT Mouse Button Anywhere in the View Frame,\n" +
-                  "Then Drag the Mouse (button still down) to a New Location then Release the Button\n\n" +
-                  "A new Decoying BallisticInbound will be created using the 'click' as the start-point,\n" +
-                  "and the 'release' as the destination";
+        message = "Test 16: MobileDetector Detection Test - BallisticInbound Should Not Be Detected (no detection seen in printed log)";
         DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
         LoggingManager.logInfo(message);
-        waitforAnyInbounds();
-        waitUntilNoInbounds();
+	    		new BallisticInbound(new Point3D(75.0, 75, 25000.0),
+		                                           new Point3D(450.0, 450.0, 0.0), 200,
+		                                           "Ballistic Inbound 4", false);
+        acceptPause();
+        Thread.sleep(1000);
+        acceptPause();
         LoggingManager.logInfo("Test 16: Completed");
+
+	    message = "Test 17: MobileDetector Detection Test - BallisticInbound Moves Into Detection Range & Detonates (detection seen in printed log)";
+	    DisplayManager.getInstance().popUpInfo(message + ". \n\nClick OK to proceed with test......\n");
+	    LoggingManager.logInfo(message);
+	    acceptPause();
+	    waitUntilNoInbounds();
+	    acceptPause();
+	    LoggingManager.logInfo("Test 17: Completed");
+
+
     }
 
 
@@ -282,28 +258,17 @@ public class TheApp implements Runnable, ViewFrameListener
         }
     }
 
-    private void waitforAnyInbounds() throws InterruptedException
-    {
-        int cnt = 0;
-        while (InboundManager.getInstance().getNumEntries() == 0)
-        {
-            if ((cnt++ % 5) == 0)
-            {
-                LoggingManager.logInfo("Waiting for Test Completion...");
-            }
-            Thread.sleep(1000);
-        }
-    }
-
     public void acceptPause()
     {
-        LoggingManager.logInfo("App. Paused!");
+
         if (paused)
         {
+	        LoggingManager.logInfo("App. Resumed!");
             paused = false;
         }
         else
         {
+	        LoggingManager.logInfo("App. Paused!");
             paused = true;
         }
     }
