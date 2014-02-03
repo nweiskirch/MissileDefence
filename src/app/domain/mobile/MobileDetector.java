@@ -8,10 +8,8 @@ package app.domain.mobile;
 
 import app.domain.BallisticInbound;
 import app.interfaces.Detector;
-import app.managers.DetectorManager;
 import app.managers.InboundManager;
 import app.utils.RandomGenerator;
-import display.managers.DisplayManager;
 import java.util.ArrayList;
 import utils.LoggingManager;
 import utils.Point3D;
@@ -36,8 +34,7 @@ public class MobileDetector extends Detector{
         range = rangeIn;
         launchers = associatedLaunchers;
         symbol = "MD";
-        DisplayManager.getInstance().addContent(this);
-        DetectorManager.getInstance().addEntry(this);
+        addSelf();
     }
     
     public void update(double millis){
