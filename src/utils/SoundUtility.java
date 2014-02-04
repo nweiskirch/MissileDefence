@@ -9,6 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -59,14 +60,18 @@ public class SoundUtility implements Runnable
 		return playSounds;
 	}
 
-	private void playSound()
+	private void playSound() throws URISyntaxException
 	{
 		if (!getPlaySounds()) return;
 
 		String next = getNextFileToPlay();
 		while (next != null)
 		{
-			File soundFile = new File(next);
+                    File soundFile = null;
+                    try {
+                        soundFile = new File(getClass().getResource(next).toURI());
+                    } catch (URISyntaxException uRISyntaxException) {
+                    }
 			LoggingManager.logInfo("Play: " + next);
 			try
 			{
