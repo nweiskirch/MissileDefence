@@ -76,7 +76,7 @@ public class InboundManager {
         ArrayList<BallisticInbound> detected = new ArrayList<>();
         double minAlt = PropertyManager.Instance().getDoubleProperty("MINALTITUDE");
         for(BallisticInbound bi: entries){
-            if(d.getLocation().distance(bi.getLocation()) < d.getRange() && bi.getLocation().getZ() < minAlt){
+            if(d.getLocation().distance(bi.getLocation()) < d.getRange() && bi.getLocation().getZ() > minAlt){
                 detected.add(bi);
             }
         }
