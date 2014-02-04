@@ -16,7 +16,7 @@ import utils.Point3D;
 import utils.PropertyManager;
 
 /**
- *
+ * A mobile detector is a detector that can move.
  * @author Nate
  */
 public class MobileDetector extends Detector{
@@ -25,6 +25,15 @@ public class MobileDetector extends Detector{
     private double speed;
     private double maxSpeed;
     
+    /**
+     * Creates the Mobile Detector
+     * @param locationIn
+     * @param destinationIn
+     * @param speedIn
+     * @param idIn
+     * @param rangeIn
+     * @param associatedLaunchers
+     */
     public MobileDetector(Point3D locationIn, Point3D destinationIn, double speedIn, String idIn, double rangeIn, ArrayList associatedLaunchers) {
         location = locationIn;
         destination = destinationIn;
@@ -37,6 +46,11 @@ public class MobileDetector extends Detector{
         addSelf();
     }
     
+    /**
+     * Updates the state of the detector. Will move towards the destination and then pick 
+     * a new random destination when reached. It will also detect inbound missiles
+     * @param millis the time that has passed since the last call to update()
+     */
     public void update(double millis){
         move(millis);
         ArrayList<BallisticInbound> detected = InboundManager.getInstance().detect(this);

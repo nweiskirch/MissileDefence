@@ -8,11 +8,18 @@ import utils.LoggingManager;
 import utils.Point3D;
 
 /**
- *
+ * A Fixed Detector is a detector that cannot move
  * @author Nate
  */
 public class FixedDetector extends Detector{
 
+    /**
+     * Creates a Fixed Detector
+     * @param locationIn the location
+     * @param idIn the ID string
+     * @param rangeIn the detection range
+     * @param associatedLaunchers its associated launchers
+     */
     public FixedDetector(Point3D locationIn, String idIn, double rangeIn, ArrayList associatedLaunchers) {
         location = locationIn;
         id = idIn;
@@ -22,6 +29,10 @@ public class FixedDetector extends Detector{
         addSelf();
     }
 
+    /**
+     * Updates the state of the detector. Will search for missiles and notify launchers
+     * @param millis the time that has passed since the last call to update()
+     */
     public void update(double millis) {
         ArrayList<BallisticInbound> detected = InboundManager.getInstance().detect(this);
         for(int i = 0; i<detected.size(); i++){

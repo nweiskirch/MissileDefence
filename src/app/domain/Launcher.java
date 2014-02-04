@@ -11,5 +11,10 @@ package app.domain;
  * @author Nate
  */
 public class Launcher {
+
+    /**
+     * Updates the state of the launcher. Does nothing yet
+     * @param millis the time that has passed since the last call to update
+     */
     public void update(double millis){}
 }

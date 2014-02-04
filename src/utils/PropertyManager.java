@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+/**
+ *
+ * @author Nate
+ */
 public class PropertyManager extends Properties
 {
 
@@ -19,6 +23,10 @@ public class PropertyManager extends Properties
         loadProperties("Properties.txt");
     }
 
+    /**
+     *
+     * @return
+     */
     public static PropertyManager Instance()
     {
         if (instance == null)
@@ -28,7 +36,11 @@ public class PropertyManager extends Properties
         return instance;
     }
 
-
+    /**
+     *
+     * @param key
+     * @return
+     */
     public int getIntProperty(String key)
     {
         if (propertyIsNull(key))
@@ -39,6 +51,11 @@ public class PropertyManager extends Properties
         return new Integer(getProperty(key)).intValue();
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public double getDoubleProperty(String key)
     {
         if (propertyIsNull(key))
@@ -49,6 +66,11 @@ public class PropertyManager extends Properties
         return new Double(getProperty(key)).doubleValue();
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public boolean getBooleanProperty(String key)
     {
         if (propertyIsNull(key))
@@ -59,6 +81,11 @@ public class PropertyManager extends Properties
         return new Boolean(getProperty(key)).booleanValue();
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     */
     public String getStringProperty(String key)
     {
         if (propertyIsNull(key))
@@ -69,18 +96,31 @@ public class PropertyManager extends Properties
         return new String(getProperty(key));
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public boolean propertyIsNull(String s)
     {
         if (getProperty(s) == null) return true;
         return false;
     }
 
+    /**
+     *
+     * @param key
+     * @param value
+     */
     public void addProperty(String key, String value)
     {
         setProperty(key, value);
     }
 
-
+    /**
+     *
+     * @param fileName
+     */
     public void loadProperties(String fileName)
     {
         BufferedReader inFile = null;

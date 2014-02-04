@@ -4,8 +4,17 @@ import utils.LoggingManager;
 import utils.SoundUtility;
 import display.managers.DisplayManager;
 
+/**
+ * The Driver begins the program
+ * @author Nate
+ */
 public class Driver
 {
+
+    /**
+     *  Main method of the entire application
+     * @param args
+     */
     public static void main(String args[])
     {
         new Thread(SoundUtility.getInstance()).start();

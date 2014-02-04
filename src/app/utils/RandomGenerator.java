@@ -3,10 +3,21 @@ package app.utils;
 import utils.LoggingManager;
 import utils.PropertyManager;
 
+/**
+ *
+ * @author Nate
+ */
 public class RandomGenerator
 {
 
+    /**
+     * The first random seed
+     */
     public static int seed1;
+
+    /**
+     * The second random seed
+     */
     public static int seed2;
 
     private static RandomGenerator instance;
@@ -14,11 +25,19 @@ public class RandomGenerator
     private int i97, j97;
     private boolean init = false;
 
+    /**
+     *
+     * @return
+     */
     public double getRandomNumber()
     {
         return randomUniform();
     }
 
+    /**
+     *
+     * @return
+     */
     public double randomUniform()
     {
         double uni;
@@ -59,6 +78,10 @@ public class RandomGenerator
         return (uni);
     }
 
+    /**
+     *
+     * @return
+     */
     public static RandomGenerator Instance()
     {
         if (instance == null)
@@ -78,6 +101,11 @@ public class RandomGenerator
         randomInit(ij, kl);
     }
 
+    /**
+     *
+     * @param ij
+     * @param kl
+     */
     public void randomInit(int ij, int kl)
     {
         double s, t;

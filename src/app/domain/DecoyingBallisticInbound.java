@@ -16,12 +16,27 @@ public class DecoyingBallisticInbound extends BallisticInbound {
 
     private int decoyCount;
 
+    /**
+     * Constructs a Decoying Ballistic Inbound Missile
+     * Decoying Ballistic Inbound Missiles will send out decoys if they detect that an
+     * intercepting missile has locked on to them
+     * @param locationIn The starting location
+     * @param destinationIn The missiles destination
+     * @param speedIn The missiles speed
+     * @param id The missiles ID string
+     * @param numDecoys The number of decoys the missile can deploy
+     * @param isDecoy true if the missile is a decoy
+     */
     public DecoyingBallisticInbound(Point3D locationIn, Point3D destinationIn, double speedIn, String id, int numDecoys, boolean isDecoy) {
         super(locationIn, destinationIn, speedIn, id, isDecoy);
         decoyCount = numDecoys;
         LoggingManager.logInfo("DecoyingBallisticInbound Created, ID = " + id);
     }
 
+    /**
+     * Called if a lock is detected. The missile will send out decoys
+     * @param point the location of the intercepting missile
+     */
     public void lockDetected(Point3D point) {
         double lockDistance = location.distance(point);
         double destDistance = location.distance(destination);

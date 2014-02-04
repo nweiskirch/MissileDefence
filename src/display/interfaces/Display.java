@@ -7,17 +7,40 @@ package display.interfaces;
 public interface Display
 {
 
+    /**
+     *
+     * @param d
+     */
+    public void addContent(Displayable d);
 
-	public void addContent(Displayable d);
+    /**
+     *
+     * @param d
+     * @param delay
+     */
+    public void removeContent(Displayable d, int delay);
 
-	public void removeContent(Displayable d, int delay);
+    /**
+     *
+     * @return
+     */
+    public int contentSize();
 
-	public int contentSize();
+    /**
+     *
+     */
+    public void updateDisplay();
 
-	public void updateDisplay();
+    /**
+     *
+     * @param viewFrameListener
+     */
+    public void setViewFrameListener(ViewFrameListener viewFrameListener);
 
-	public void setViewFrameListener(ViewFrameListener viewFrameListener);
-
-	public void popUpInfo(String msg);
+    /**
+     *
+     * @param msg
+     */
+    public void popUpInfo(String msg);
 
 }

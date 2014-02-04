@@ -11,7 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ *
+ * @author Nate
+ */
 public class SoundUtility implements Runnable
 {
 	private boolean running = true;
@@ -20,7 +23,11 @@ public class SoundUtility implements Runnable
 
 	private boolean playSounds = true;
 
-	public static SoundUtility getInstance()
+    /**
+     *
+     * @return
+     */
+    public static SoundUtility getInstance()
 	{
 		if (instance == null)
 		{
@@ -38,7 +45,11 @@ public class SoundUtility implements Runnable
 
 	}
 
-	public void setPlaySounds(boolean value)
+    /**
+     *
+     * @param value
+     */
+    public void setPlaySounds(boolean value)
 	{
 		playSounds = value;
 	}
@@ -109,7 +120,11 @@ public class SoundUtility implements Runnable
 		}
 	}
 
-	public synchronized void playSound(String file)
+    /**
+     *
+     * @param file
+     */
+    public synchronized void playSound(String file)
 	{
 		addFileToPlay("sounds\\" + file);
 		notify();
@@ -140,7 +155,11 @@ public class SoundUtility implements Runnable
 		return running;
 	}
 
-	public void setRunning(boolean runningIn)
+    /**
+     *
+     * @param runningIn
+     */
+    public void setRunning(boolean runningIn)
 	{
 		running = runningIn;
 	}
@@ -160,7 +179,10 @@ public class SoundUtility implements Runnable
             //       LoggingManager.logInfo("SOUNDS: " + fileToPlay.size());
 	}
 
-	public void runBasicTests()
+    /**
+     *
+     */
+    public void runBasicTests()
 	{
 		try
 		{

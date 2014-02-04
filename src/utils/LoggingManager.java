@@ -10,6 +10,10 @@ import org.apache.log4j.WriterAppender;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+/**
+ *
+ * @author Nate
+ */
 public class LoggingManager
 {
 
@@ -48,61 +52,95 @@ public class LoggingManager
         initialized = true;
     }
 
+    /**
+     *
+     */
     public static void setDebug()
     {
         initialize();
         logger.setLevel(Level.DEBUG);
     }
 
+    /**
+     *
+     */
     public static void setInfo()
     {
         initialize();
         logger.setLevel(Level.INFO);
     }
 
+    /**
+     *
+     */
     public static void setWarn()
     {
         initialize();
         logger.setLevel(Level.WARN);
     }
 
+    /**
+     *
+     */
     public static void setError()
     {
         initialize();
         logger.setLevel(Level.ERROR);
     }
 
+    /**
+     *
+     */
     public static void setFatal()
     {
         initialize();
         logger.setLevel(Level.FATAL);
     }
 
-
+    /**
+     *
+     * @param msg
+     */
     public static void logDebug(String msg)
     {
         initialize();
         logger.debug(msg);
     }
 
+    /**
+     *
+     * @param msg
+     */
     public static void logInfo(String msg)
     {
         initialize();
         logger.info(msg);
     }
 
+    /**
+     *
+     * @param msg
+     */
     public static void logWarn(String msg)
     {
         initialize();
         logger.warn(msg);
     }
 
+    /**
+     *
+     * @param msg
+     */
     public static void logError(String msg)
     {
         initialize();
         logger.error(msg);
     }
 
+    /**
+     *
+     * @param msg
+     */
     public static void logFatal(String msg)
     {
         initialize();

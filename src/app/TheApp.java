@@ -15,11 +15,18 @@ import utils.Point3D;
 
 import java.util.ArrayList;
 
+/**
+ *  The engine of the application. It contains all of the tests
+ * @author Nate
+ */
 public class TheApp implements Runnable, ViewFrameListener
 {
     private boolean paused = false;
     private boolean running = true;
 
+    /**
+     *  Constructs a TheApp object
+     */
     public TheApp()
     {
         DisplayManager.getInstance().setViewFrameListener(this);
@@ -55,7 +62,10 @@ public class TheApp implements Runnable, ViewFrameListener
         System.exit(0);
     }
 
-
+    /**
+     *  Runs the tests for the Fixed Detectors
+     * @throws InterruptedException
+     */
     public void runFDTests() throws InterruptedException
     {
         String message;
@@ -138,6 +148,10 @@ public class TheApp implements Runnable, ViewFrameListener
 
     }
 
+    /**
+     *  Runs tests for the mobile detectors
+     * @throws InterruptedException
+     */
     public void runMDTests() throws InterruptedException
     {
         String message;
@@ -258,6 +272,9 @@ public class TheApp implements Runnable, ViewFrameListener
         }
     }
 
+    /**
+     *
+     */
     public void acceptPause()
     {
 
@@ -273,6 +290,9 @@ public class TheApp implements Runnable, ViewFrameListener
         }
     }
 
+    /**
+     *  Stop the app
+     */
     public synchronized void acceptStop()
     {
         LoggingManager.logInfo("App. Stopped!");
@@ -280,12 +300,22 @@ public class TheApp implements Runnable, ViewFrameListener
         notify();
     }
 
+    /**
+     *  Close the app
+     */
     public void acceptClose()
     {
         LoggingManager.logInfo("App. Closed!");
         acceptStop();
     }
 
+    /**
+     *  Executed when the left mouse button is clicked. Will create a Ballistic Inbound Missile
+     * @param pressX the starting x position
+     * @param pressY the starting y position
+     * @param releaseX the ending x position
+     * @param releaseY the ending y position
+     */
     public void acceptLeftButtonMouseCommand(int pressX, int pressY, int releaseX, int releaseY)
     {
         LoggingManager.logInfo("Left Mouse Button [" + pressX + ", " + pressY + " " + releaseX + ", " + releaseY + "]");
@@ -301,6 +331,13 @@ public class TheApp implements Runnable, ViewFrameListener
         }
     }
 
+    /**
+     *  Executed when the right mouse button is clicked. Will Create a Decoying Ballistic Inbound Missile
+     * @param pressX the starting x position
+     * @param pressY the starting y position
+     * @param releaseX the ending x position
+     * @param releaseY the ending y position
+     */
     public void acceptRightButtonMouseCommand(int pressX, int pressY, int releaseX, int releaseY)
     {
         LoggingManager.logInfo("Left Mouse Button [" + pressX + ", " + pressY + " " + releaseX + ", " + releaseY + "]");
