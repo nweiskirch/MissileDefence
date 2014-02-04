@@ -7,6 +7,7 @@
 package app.domain.mobile;
 
 import app.domain.BallisticInbound;
+import app.domain.Launcher;
 import app.interfaces.Detector;
 import app.managers.InboundManager;
 import app.utils.RandomGenerator;
@@ -34,7 +35,7 @@ public class MobileDetector extends Detector{
      * @param rangeIn
      * @param associatedLaunchers
      */
-    public MobileDetector(Point3D locationIn, Point3D destinationIn, double speedIn, String idIn, double rangeIn, ArrayList associatedLaunchers) {
+    public MobileDetector(Point3D locationIn, Point3D destinationIn, double speedIn, String idIn, double rangeIn, ArrayList<Launcher> associatedLaunchers) {
         location = locationIn;
         destination = destinationIn;
         speed = speedIn;
@@ -69,7 +70,7 @@ public class MobileDetector extends Detector{
             return;
         }
         if(distTraveled >= distToDest){
-            location = destination;
+            location = (Point3D) destination.clone();
             arrived();
             return;
         }
