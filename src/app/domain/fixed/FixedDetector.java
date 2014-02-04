@@ -32,6 +32,7 @@ public class FixedDetector extends Detector{
         launchers = associatedLaunchers;
         symbol = "FD";
         addSelf();
+        LoggingManager.logInfo("Fixed Detector Created, ID = " + id);
     }
 
     /**

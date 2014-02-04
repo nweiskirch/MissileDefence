@@ -8,6 +8,7 @@ package app.managers;
 
 import app.interfaces.Detector;
 import java.util.ArrayList;
+import utils.LoggingManager;
 import utils.Point3D;
 import utils.PropertyManager;
 
@@ -77,6 +78,7 @@ public class DetectorManager {
      * @param location the location of the detonation
      */
     public void applyBlastDamage(Point3D location){
+        LoggingManager.logInfo("Applying blast damage at location " +location.toString());
         int blastRange = PropertyManager.Instance().getIntProperty("BLASTRANGE");
         for(int i = 0; i<entries.size(); i++){
             if(location.distance(entries.get(i).getLocation())<blastRange){

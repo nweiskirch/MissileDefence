@@ -130,10 +130,10 @@ public class BallisticInbound implements Displayable {
         double alterVar = PropertyManager.Instance().getDoubleProperty("DESTALTERVARIATION");
         double xmod = (1 - alterVar) + (2 * alterVar * RandomGenerator.Instance().getRandomNumber());
         double ymod = (1 - alterVar) + (2 * alterVar * RandomGenerator.Instance().getRandomNumber());
-        LoggingManager.logInfo("Original Destination (" + destination.x + ", " + destination.y + ", " + destination.z + ")");
+        LoggingManager.logInfo("Course altered\nOriginal Destination " + destination.toString());
         destination.x *= xmod;
         destination.y *= ymod;
-        LoggingManager.logInfo("New Destination (" + destination.x + ", " + destination.y + ", " + destination.z + ")");
+        LoggingManager.logInfo("New Destination " + destination.toString());
     }
 
     /**
@@ -157,13 +157,13 @@ public class BallisticInbound implements Displayable {
         if(isDecoy){
             symbol = "O";
             SoundUtility.getInstance().playSound("Crunch.wav");
-            LoggingManager.logInfo("Decoy has reached destination, ID = " + id);
+            LoggingManager.logInfo("Decoy " + id + " has reached destination: " + destination.toString());
         }
         else{
             applyGroundDamage();
             symbol = "X";
             SoundUtility.getInstance().playSound("Explosion.wav");
-            LoggingManager.logInfo("Ballistic Inbound Misssile has reached destination, ID = " + id);
+            LoggingManager.logInfo("Ballistic Inbound Misssile" + id + " has reached destination: " + destination.toString());
         }
         InboundManager.getInstance().removeEntry(this);
         DisplayManager.getInstance().removeContent(this, PropertyManager.Instance().getIntProperty("REMOVALDELAY"));

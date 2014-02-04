@@ -45,6 +45,7 @@ public class MobileDetector extends Detector{
         launchers = associatedLaunchers;
         symbol = "MD";
         addSelf();
+        LoggingManager.logInfo("Mobile Detector Created, ID = " + id);
     }
     
     /**
@@ -85,5 +86,8 @@ public class MobileDetector extends Detector{
         double newy = RandomGenerator.Instance().getRandomNumber()*PropertyManager.Instance().getIntProperty("PIXELSY");
         destination.x = newx;
         destination.y = newy;
+        LoggingManager.logInfo("Mobile Detector " + id + " has reached its destination: " 
+                + location.toString() + "\nNew destination: ("
+                + destination.toString());
     }
 }
