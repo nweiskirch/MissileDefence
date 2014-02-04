@@ -126,7 +126,7 @@ public class SoundUtility implements Runnable
      */
     public synchronized void playSound(String file)
 	{
-		addFileToPlay("sounds\\" + file);
+		addFileToPlay("resources\\sounds\\" + file);
 		notify();
 	}
 

@@ -126,7 +126,7 @@ public class PropertyManager extends Properties
         BufferedReader inFile = null;
         try
         {
-            inFile = new BufferedReader(new FileReader(fileName));
+            inFile = new BufferedReader(new FileReader("resources\\" + fileName));
         }
         catch (FileNotFoundException e)
         {
