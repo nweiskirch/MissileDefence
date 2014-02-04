@@ -53,6 +53,10 @@ public class BallisticInbound implements Displayable {
      * @param isDecoy true if the missile is a decoy
      */
     public BallisticInbound(Point3D locationIn, Point3D destinationIn, double speedIn, String id, boolean isDecoy) {
+        if(speedIn < 0){
+            speed = 0;
+            throw new NumberFormatException("Speed less than 0");
+        }
         this.id = id;
         location = locationIn;
         destination = destinationIn;
@@ -88,6 +92,10 @@ public class BallisticInbound implements Displayable {
      * @param millis the time that has passed since the last call to update()
      */
     public void update(double millis) {
+        if(millis < 0){
+            millis = 0;
+            throw new NumberFormatException("Time less than 0");
+        }
         double distTraveled = speed * millis/1000;
         double distToDest = location.distance(destination);
         if(distToDest == 0){

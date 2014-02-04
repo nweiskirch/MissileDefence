@@ -47,6 +47,10 @@ public class DetectorManager {
      * @param millis the time that has passed since the last call to update()
      */
     public void update(int millis){
+        if(millis < 0){
+            millis = 0;
+            throw new NumberFormatException("Time less than 0");
+        }
         for(int i = 0; i<entries.size(); i++){
             entries.get(i).update(millis);
         }

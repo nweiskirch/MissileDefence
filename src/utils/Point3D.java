@@ -6,8 +6,7 @@ import java.awt.*;
  *
  * @author Nate
  */
-public class Point3D extends Point.Double
-{
+public class Point3D extends Point.Double {
 
     /**
      *
@@ -20,45 +19,40 @@ public class Point3D extends Point.Double
      * @param yIn
      * @param zIn
      */
-    public Point3D(double xIn, double yIn, double zIn)
-	{
-		setCoordinates(xIn, yIn, zIn);
-	}
+    public Point3D(double xIn, double yIn, double zIn) {
+        setCoordinates(xIn, yIn, zIn);
+    }
 
     /**
      *
      * @param xIn
      * @param yIn
      */
-    public Point3D(double xIn, double yIn)
-	{
-		setCoordinates(xIn, yIn, 0.0);
-	}
+    public Point3D(double xIn, double yIn) {
+        setCoordinates(xIn, yIn, 0.0);
+    }
 
     /**
      *
      * @param aPoint
      */
-    public Point3D(Point3D aPoint)
-	{
-		setCoordinates(aPoint.getX(), aPoint.getY(), aPoint.getZ());
-	}
+    public Point3D(Point3D aPoint) {
+        setCoordinates(aPoint.getX(), aPoint.getY(), aPoint.getZ());
+    }
 
     /**
      *
      */
-    public Point3D()
-	{
-	}
+    public Point3D() {
+    }
 
     /**
      *
      * @return
      */
-    public double getZ()
-	{
-		return z;
-	}
+    public double getZ() {
+        return z;
+    }
 
     /**
      *
@@ -66,22 +60,28 @@ public class Point3D extends Point.Double
      * @param yIn
      * @param zIn
      */
-    public void setCoordinates(double xIn, double yIn, double zIn)
-	{
-		x = xIn;
-		y = yIn;
-		z = zIn;
-
-	}
+    public void setCoordinates(double xIn, double yIn, double zIn) {
+        int xmax = PropertyManager.Instance().getIntProperty("PIXELSX");
+        int ymax = PropertyManager.Instance().getIntProperty("PIXELSY");
+        if(xIn < 0 || xIn > xmax || yIn < 0 || yIn > xmax || zIn < 0){
+            x = 0;
+            y = 0;
+            x = 0;
+            throw new NumberFormatException("Coordinates out of bounds");
+        }
+        x = xIn;
+        y = yIn;
+        z = zIn;
+        
+    }
 
     /**
      *
      * @param aPoint
      */
-    public void setLocation(Point3D aPoint)
-	{
-		setCoordinates(aPoint);
-	}
+    public void setLocation(Point3D aPoint) {
+        setCoordinates(aPoint);
+    }
 
     /**
      *
@@ -89,24 +89,21 @@ public class Point3D extends Point.Double
      * @param yIn
      * @param zIn
      */
-    public void setLocation(double xIn, double yIn, double zIn)
-	{
-		setCoordinates(xIn, yIn, zIn);
-	}
+    public void setLocation(double xIn, double yIn, double zIn) {
+        setCoordinates(xIn, yIn, zIn);
+    }
 
     /**
      *
      * @param aPoint
      */
-    public void setCoordinates(Point3D aPoint)
-	{
-		setCoordinates(aPoint.getX(), aPoint.getY(), aPoint.getZ());
-	}
+    public void setCoordinates(Point3D aPoint) {
+        setCoordinates(aPoint.getX(), aPoint.getY(), aPoint.getZ());
+    }
 
-	public String toString()
-	{
-		return "[" + x + ", " + y + ", " + z + "]";
-	}
+    public String toString() {
+        return "[" + x + ", " + y + ", " + z + "]";
+    }
 
     /**
      *
@@ -115,36 +112,33 @@ public class Point3D extends Point.Double
      * @param zIn
      * @return
      */
-    public double distance(double xIn, double yIn, double zIn)
-	{
-		xIn -= getX();
-		yIn -= getY();
-		zIn -= getZ();
+    public double distance(double xIn, double yIn, double zIn) {
+        xIn -= getX();
+        yIn -= getY();
+        zIn -= getZ();
 
-		return Math.sqrt(xIn * xIn + yIn * yIn + zIn * zIn);
-	}
+        return Math.sqrt(xIn * xIn + yIn * yIn + zIn * zIn);
+    }
 
     /**
      *
      * @param aPoint
      * @return
      */
-    public double distance(Point3D aPoint)
-	{
-		return distance(aPoint.getX(), aPoint.getY(), aPoint.getZ());
-	}
+    public double distance(Point3D aPoint) {
+        return distance(aPoint.getX(), aPoint.getY(), aPoint.getZ());
+    }
 
     /**
      *
      * @param aPoint3D
      * @return
      */
-    public boolean equals(Point3D aPoint3D)
-	{
-		if ((getX() == aPoint3D.getX()) && (getY() == aPoint3D.getY()) && (getZ() == aPoint3D.getZ()))
-			return true;
-		else
-			return false;
-	}
-
+    public boolean equals(Point3D aPoint3D) {
+        if ((getX() == aPoint3D.getX()) && (getY() == aPoint3D.getY()) && (getZ() == aPoint3D.getZ())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

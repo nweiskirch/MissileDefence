@@ -29,6 +29,10 @@ public class DecoyingBallisticInbound extends BallisticInbound {
      */
     public DecoyingBallisticInbound(Point3D locationIn, Point3D destinationIn, double speedIn, String id, int numDecoys, boolean isDecoy) {
         super(locationIn, destinationIn, speedIn, id, isDecoy);
+        if(numDecoys < 0){
+            decoyCount = 0;
+            throw new NumberFormatException("Number of Decoys less than 0");
+        }
         decoyCount = numDecoys;
         LoggingManager.logInfo("DecoyingBallisticInbound Created, ID = " + id);
     }
