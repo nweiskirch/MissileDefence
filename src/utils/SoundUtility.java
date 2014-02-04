@@ -60,7 +60,7 @@ public class SoundUtility implements Runnable
 		return playSounds;
 	}
 
-	private void playSound() throws URISyntaxException
+	private void playSound()
 	{
 		if (!getPlaySounds()) return;
 
