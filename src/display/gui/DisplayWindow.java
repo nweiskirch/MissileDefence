@@ -101,6 +101,7 @@ public class DisplayWindow extends Canvas implements MouseListener {
      *
      * @param d the "Displayable" object to be removed from the list of elements
      * that are drawn in the display window.
+     * @param delay
      */
     public synchronized void removeContent(Displayable d, int delay) {
         getToBeRemoved().put(d, new Integer(delay));

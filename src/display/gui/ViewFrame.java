@@ -120,6 +120,7 @@ public class ViewFrame extends JFrame implements ViewFrameListener, Display
 	 * list of elements that are drawn in the display window.
 	 *
 	 * @param d the "Displayable" object to be added to the list of elements that are drawn in the display window.
+     * @param delay
 	 */
 	public void removeContent(Displayable d, int delay)
 	{
@@ -207,6 +208,10 @@ public class ViewFrame extends JFrame implements ViewFrameListener, Display
 	 * This method receives the left mouse button press & release event from the
 	 * DisplayWindow and forwards it to the ViewFrameListener (if any).
 	 * The ViewFrameListener is usually an object in your application.
+     * @param pressX
+     * @param pressY
+     * @param releaseX
+     * @param releaseY
 	 */
 	public void acceptLeftButtonMouseCommand(int pressX, int pressY, int releaseX, int releaseY)
 	{
@@ -220,6 +225,10 @@ public class ViewFrame extends JFrame implements ViewFrameListener, Display
 	 * This method receives the right mouse button press & release event from the
 	 * DisplayWindow and forwards it to the ViewFrameListener (if any).
 	 * The ViewFrameListener is usually an object in your application.
+     * @param pressX
+     * @param pressY
+     * @param releaseX
+     * @param releaseY
 	 */
 	public void acceptRightButtonMouseCommand(int pressX, int pressY, int releaseX, int releaseY)
 	{

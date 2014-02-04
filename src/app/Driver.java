@@ -1,30 +1,42 @@
 package app;
 
+import utils.LoggingManager;
 import utils.SoundUtility;
+import display.managers.DisplayManager;
 
-
+/**
+ * The Driver begins the program
+ * @author Nate
+ */
 public class Driver
 {
 
-	// This is the application's "driver" - it contains the "main" method.
+    /**
+     *  Main method of the entire application
+     * @param args
+     */
+    public static void main(String args[])
+    {
+        new Thread(SoundUtility.getInstance()).start();
 
-	// This "main" method starts the SoundUtility thread and calls the
-	// SoundUtility test method "runBasicTests".
+        LoggingManager.setInfo();
 
-	// Afterwards, the "application" is created, then ir is started running
-	// in it's own thread. Finally, the TheApp test method "runBasicTests"
-	// is called.
+        TheApp ta = new TheApp();
+        new Thread(ta).start();
 
-	public static void main(String args[])
-	{
-		new Thread(SoundUtility.getInstance()).start();
-		SoundUtility.getInstance().runBasicTests();
-
-		TheApp ta = new TheApp();
-		new Thread(ta).start();
-		ta.runBasicTests();
-
-	}
+        try
+        {
+	        ta.runFDTests();
+	        ta.runMDTests();
+            DisplayManager.getInstance().popUpInfo("Tests Complete. \n\nPlease press the 'Stop' Button to Exit\n\n");
+            LoggingManager.logInfo("Tests Complete.");
+        }
+        catch (Exception e) // Should catch your exceptions
+        {
+            e.printStackTrace();
+        }
+	    System.exit(0);
+    }
 
 
 }

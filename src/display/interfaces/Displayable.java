@@ -9,7 +9,16 @@ import utils.Point3D;
 
 public interface Displayable
 {
-	public Point3D getLocation();
 
-	public String getSymbol();
+    /**
+     *
+     * @return
+     */
+    public Point3D getLocation();
+
+    /**
+     *
+     * @return
+     */
+    public String getSymbol();
 }
