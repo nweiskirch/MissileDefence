@@ -1,6 +1,7 @@
 package app.domain.fixed;
 
 import app.domain.BallisticInbound;
+import app.domain.Launcher;
 import app.interfaces.Detector;
 import app.managers.InboundManager;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class FixedDetector extends Detector{
      * @param rangeIn the detection range
      * @param associatedLaunchers its associated launchers
      */
-    public FixedDetector(Point3D locationIn, String idIn, double rangeIn, ArrayList associatedLaunchers) {
+    public FixedDetector(Point3D locationIn, String idIn, double rangeIn, ArrayList<Launcher> associatedLaunchers) {
         location = locationIn;
         id = idIn;
         range = rangeIn;
