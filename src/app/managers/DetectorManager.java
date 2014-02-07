@@ -6,7 +6,7 @@
 
 package app.managers;
 
-import app.interfaces.Detector;
+import app.domain.Detector;
 import java.util.ArrayList;
 import utils.LoggingManager;
 import utils.Point3D;

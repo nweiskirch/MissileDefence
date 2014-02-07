@@ -6,7 +6,7 @@
 package app.managers;
 
 import app.domain.BallisticInbound;
-import app.interfaces.Detector;
+import app.domain.Detector;
 import java.util.ArrayList;
 import utils.PropertyManager;
 

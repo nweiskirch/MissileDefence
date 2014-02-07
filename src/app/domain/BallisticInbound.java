@@ -7,6 +7,7 @@ package app.domain;
 
 import app.managers.DetectorManager;
 import app.managers.InboundManager;
+import app.managers.LauncherManager;
 import app.utils.RandomGenerator;
 import display.interfaces.Displayable;
 import display.managers.DisplayManager;
@@ -170,5 +171,6 @@ public class BallisticInbound implements Displayable {
     }
     private void applyGroundDamage(){
         DetectorManager.getInstance().applyBlastDamage(location);
+        LauncherManager.getInstance().applyBlastDamage(location);
     }
 }

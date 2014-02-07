@@ -17,11 +17,7 @@ public class DisplayManager implements Display
 	private volatile static DisplayManager instance;
 	private Display display;
 
-    /**
-     *
-     * @return
-     */
-    public static DisplayManager getInstance()
+	public static DisplayManager getInstance()
 	{
 		if (instance == null)
 		{
@@ -83,7 +79,6 @@ public class DisplayManager implements Display
 	 * list of elements that are drawn in the display window.
 	 *
 	 * @param d the "Displayable" object to be added to the list of elements that are drawn in the display window.
-     * @param delay
 	 */
 	public void removeContent(Displayable d, int delay)
 	{
