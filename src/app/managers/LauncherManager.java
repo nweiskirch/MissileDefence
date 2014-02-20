@@ -6,7 +6,7 @@ package app.managers;
 
 import app.domain.BallisticInbound;
 import app.domain.Launcher;
-import app.domain.interfaces.Interceptor;
+import app.domain.Interceptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utils.LoggingManager;

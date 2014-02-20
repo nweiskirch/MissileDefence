@@ -4,17 +4,20 @@
  */
 package app.domain;
 
-import app.domain.interfaces.Interceptor;
 import app.managers.LauncherManager;
 import utils.LoggingManager;
+import utils.Point3D;
 
 /**
  *
  * @author Nate
  */
-public class PredictorInterceptor implements Interceptor {
+public class PredictorInterceptor extends Interceptor {
 
-    private BallisticInbound target;
+    public PredictorInterceptor(Point3D location, double speed, double maxSpeed, String id, double minSpeed, Launcher launcher) {
+        super(location, speed, maxSpeed, id, minSpeed, launcher);
+        symbol = "P";
+    }
 
     public void launch(BallisticInbound bi) throws Exception {
         target = bi;

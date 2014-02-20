@@ -11,8 +11,6 @@ import app.managers.LauncherManager;
 import display.interfaces.Displayable;
 import display.managers.DisplayManager;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utils.LoggingManager;
 import utils.Point3D;
 import utils.PropertyManager;
@@ -131,7 +129,7 @@ public abstract class Detector implements Displayable {
         }
     }
 
-    protected void performLaunch(BallisticInbound bi) {
+    protected void performLaunch(BallisticInbound bi){
         if (LauncherManager.getInstance().isFullyTargeted(bi) || launchers.isEmpty()) {
             return;
         }
@@ -161,6 +159,9 @@ public abstract class Detector implements Displayable {
                 launchers.remove(toLaunch);
             }
             numNeeded -= numToLaunch;
+            if(numNeeded > 0 && launchers.isEmpty()){
+                break;
+            }
         }
     }
 }

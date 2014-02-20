@@ -34,10 +34,10 @@ public class Launcher implements Displayable {
         predins = new LinkedList<>();
         trackins = new LinkedList<>();
         for (int i = 0; i < numPredictors; i++) {
-            predins.add(new PredictorInterceptor());
+            predins.add(new PredictorInterceptor(new Point3D(0,0,0), 190, 190, id+"_P_"+i, 75, this));
         }
         for (int i = 0; i < numTrackers; i++) {
-            trackins.add(new TrackerInterceptor());
+            trackins.add(new TrackerInterceptor(new Point3D(0,0,0), 0, 100, id+"_P_"+i, 75, this));
         }
     }
 

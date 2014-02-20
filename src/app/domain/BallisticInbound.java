@@ -79,6 +79,18 @@ public class BallisticInbound implements Displayable {
     public Point3D getLocation() {
         return location;
     }
+    
+    public Point3D getDestination(){
+        return destination;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
 
     /**
      *
