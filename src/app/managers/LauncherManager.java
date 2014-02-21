@@ -4,9 +4,9 @@
  */
 package app.managers;
 
-import app.domain.BallisticInbound;
+import app.domain.missiles.BallisticInbound;
 import app.domain.Launcher;
-import app.domain.Interceptor;
+import app.domain.missiles.Interceptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utils.LoggingManager;
@@ -65,6 +65,12 @@ public class LauncherManager {
             ArrayList<Interceptor> ins = new ArrayList<>();
             ins.add(i);
             targets.put(bi, ins);
+        }
+    }
+    
+    public void removeFromTarget(BallisticInbound bi, Interceptor in){
+        if(targets.containsKey(bi)){
+            ((ArrayList)targets.get(bi)).remove(in);
         }
     }
     

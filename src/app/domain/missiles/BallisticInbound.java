@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.domain;
+package app.domain.missiles;
 
 import app.managers.DetectorManager;
 import app.managers.InboundManager;

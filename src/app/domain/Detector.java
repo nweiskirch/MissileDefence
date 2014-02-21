@@ -5,6 +5,7 @@
  */
 package app.domain;
 
+import app.domain.missiles.BallisticInbound;
 import app.managers.DetectorManager;
 import app.managers.InboundManager;
 import app.managers.LauncherManager;

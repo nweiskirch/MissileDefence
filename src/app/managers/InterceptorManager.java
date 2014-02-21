@@ -5,7 +5,7 @@
  */
 package app.managers;
 
-import app.domain.Interceptor;
+import app.domain.missiles.Interceptor;
 import java.util.ArrayList;
 
 /**

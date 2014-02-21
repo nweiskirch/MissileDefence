@@ -5,6 +5,9 @@
  */
 package app.domain;
 
+import app.domain.missiles.BallisticInbound;
+import app.domain.missiles.TrackerInterceptor;
+import app.domain.missiles.PredictorInterceptor;
 import app.managers.LauncherManager;
 import display.interfaces.Displayable;
 import display.managers.DisplayManager;
@@ -37,7 +40,7 @@ public class Launcher implements Displayable {
             predins.add(new PredictorInterceptor(new Point3D(0,0,0), 190, 190, id+"_P_"+i, 75, this));
         }
         for (int i = 0; i < numTrackers; i++) {
-            trackins.add(new TrackerInterceptor(new Point3D(0,0,0), 0, 100, id+"_P_"+i, 75, this));
+            trackins.add(new TrackerInterceptor(new Point3D(0,0,0), 0, 100, id+"_T_"+i, this, 100, 2500));
         }
     }
 

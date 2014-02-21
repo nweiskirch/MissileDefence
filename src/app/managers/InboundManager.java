@@ -5,9 +5,11 @@
  */
 package app.managers;
 
-import app.domain.BallisticInbound;
+import app.domain.missiles.BallisticInbound;
 import app.domain.Detector;
+import app.domain.missiles.Interceptor;
 import java.util.ArrayList;
+import utils.Point3D;
 import utils.PropertyManager;
 
 /**
@@ -65,6 +67,25 @@ public class InboundManager {
      */
     public void removeEntry(BallisticInbound bi){
         entries.remove(bi);
+    }
+    
+    public void lockDetected(BallisticInbound bi, Point3D location){
+        bi.lockDetected(location);
+    }
+    
+    public void interceptorStrike(Interceptor in){
+        double interceptRange = PropertyManager.Instance().getDoubleProperty("INTERCEPTORBLASTRANGE");
+        for(int i = 0; i < entries.size();i++){
+            if(in.getLocation().distance(entries.get(i).getLocation())<interceptRange){
+                if(in.getLocation().distance(entries.get(i).getLocation())<interceptRange*.75){
+                    entries.get(i).selfDestruct();
+                    i--;
+                }
+                else{
+                    entries.get(i).alterCourse();
+                }
+            }
+        }
     }
     
     /**

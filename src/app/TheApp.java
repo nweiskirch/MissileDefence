@@ -1,7 +1,7 @@
 package app;
 
-import app.domain.BallisticInbound;
-import app.domain.DecoyingBallisticInbound;
+import app.domain.missiles.BallisticInbound;
+import app.domain.missiles.DecoyingBallisticInbound;
 import app.domain.fixed.FixedDetector;
 import app.domain.fixed.FixedLauncher;
 import app.domain.mobile.MobileDetector;
