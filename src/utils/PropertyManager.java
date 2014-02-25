@@ -12,14 +12,11 @@ import java.util.StringTokenizer;
  *
  * @author Nate
  */
-public class PropertyManager extends Properties
-{
+public class PropertyManager extends Properties {
 
     private static PropertyManager instance;
 
-
-    private PropertyManager()
-    {
+    private PropertyManager() {
         loadProperties("Properties.txt");
     }
 
@@ -27,10 +24,8 @@ public class PropertyManager extends Properties
      *
      * @return
      */
-    public static PropertyManager Instance()
-    {
-        if (instance == null)
-        {
+    public static PropertyManager Instance() {
+        if (instance == null) {
             instance = new PropertyManager();
         }
         return instance;
@@ -41,10 +36,8 @@ public class PropertyManager extends Properties
      * @param key
      * @return
      */
-    public int getIntProperty(String key)
-    {
-        if (propertyIsNull(key))
-        {
+    public int getIntProperty(String key) {
+        if (propertyIsNull(key)) {
             System.err.println("**** Property: " + key + " is not loaded and has no value.");
             System.exit(0);
         }
@@ -56,10 +49,8 @@ public class PropertyManager extends Properties
      * @param key
      * @return
      */
-    public double getDoubleProperty(String key)
-    {
-        if (propertyIsNull(key))
-        {
+    public double getDoubleProperty(String key) {
+        if (propertyIsNull(key)) {
             System.err.println("**** Property: " + key + " is not loaded and has no value.");
             System.exit(0);
         }
@@ -71,10 +62,8 @@ public class PropertyManager extends Properties
      * @param key
      * @return
      */
-    public boolean getBooleanProperty(String key)
-    {
-        if (propertyIsNull(key))
-        {
+    public boolean getBooleanProperty(String key) {
+        if (propertyIsNull(key)) {
             System.err.println("**** Property: " + key + " is not loaded and has no value.");
             System.exit(0);
         }
@@ -86,10 +75,8 @@ public class PropertyManager extends Properties
      * @param key
      * @return
      */
-    public String getStringProperty(String key)
-    {
-        if (propertyIsNull(key))
-        {
+    public String getStringProperty(String key) {
+        if (propertyIsNull(key)) {
             System.err.println("**** Property: " + key + " is not loaded and has no value.");
             System.exit(0);
         }
@@ -101,9 +88,10 @@ public class PropertyManager extends Properties
      * @param s
      * @return
      */
-    public boolean propertyIsNull(String s)
-    {
-        if (getProperty(s) == null) return true;
+    public boolean propertyIsNull(String s) {
+        if (getProperty(s) == null) {
+            return true;
+        }
         return false;
     }
 
@@ -112,8 +100,7 @@ public class PropertyManager extends Properties
      * @param key
      * @param value
      */
-    public void addProperty(String key, String value)
-    {
+    public void addProperty(String key, String value) {
         setProperty(key, value);
     }
 
@@ -121,26 +108,20 @@ public class PropertyManager extends Properties
      *
      * @param fileName
      */
-    public void loadProperties(String fileName)
-    {
+    public void loadProperties(String fileName) {
         BufferedReader inFile = null;
-        try
-        {
+        try {
             inFile = new BufferedReader(new FileReader(fileName));
-        }
-        catch (FileNotFoundException e)
-        {
-            LoggingManager.logInfo("**** Property file: " + fileName + " not found in " +
-                                   new File(".").getAbsolutePath() + " - Exiting.");
+        } catch (FileNotFoundException e) {
+            LoggingManager.logInfo("**** Property file: " + fileName + " not found in "
+                    + new File(".").getAbsolutePath() + " - Exiting.");
             e.printStackTrace();
             System.exit(0);
         }
 
-        try
-        {
+        try {
             String line;
-            while ((line = inFile.readLine()) != null)
-            {
+            while ((line = inFile.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line);
                 String param = st.nextToken().trim();
                 String data = st.nextToken().trim();
@@ -148,13 +129,9 @@ public class PropertyManager extends Properties
                 addProperty(param, data);
             }
 
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
         }
     }
-
-
 }

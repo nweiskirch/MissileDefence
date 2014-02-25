@@ -14,19 +14,21 @@ import utils.PropertyManager;
  *
  * @author Nate
  */
-public class MobileLauncher extends Launcher{
+public class MobileLauncher extends Launcher {
+
     private double speed;
     private double maxSpeed;
     private Point3D destination;
-    public MobileLauncher(Point3D loc, Point3D dest, double spd, String idIn, int numPredictors, int numTrackers){
+
+    public MobileLauncher(Point3D loc, Point3D dest, double spd, String idIn, int numPredictors, int numTrackers) {
         super(loc, idIn, numPredictors, numTrackers);
         symbol = "ml";
-        speed  = spd;
+        speed = spd;
         maxSpeed = spd;
         destination = dest;
         addSelf();
     }
-    
+
     /**
      * Updates the state of the launcher.
      *
@@ -35,30 +37,30 @@ public class MobileLauncher extends Launcher{
     public void update(double millis) {
         move(millis);
     }
-    
-    private void move(double millis){
-        double distTraveled = speed * millis/1000;
+
+    private void move(double millis) {
+        double distTraveled = speed * millis / 1000;
         double distToDest = location.distance(destination);
-        if(distToDest == 0){
+        if (distToDest == 0) {
             return;
         }
-        if(distTraveled >= distToDest){
+        if (distTraveled >= distToDest) {
             location = (Point3D) destination.clone();
             arrived();
             return;
         }
         double delta = distTraveled / distToDest;
-        location.x = location.x + (destination.x-location.x)*delta;
-        location.y = location.y + (destination.y-location.y)*delta;
-        location.z = location.z + (destination.z-location.z)*delta;
+        location.x = location.x + (destination.x - location.x) * delta;
+        location.y = location.y + (destination.y - location.y) * delta;
+        location.z = location.z + (destination.z - location.z) * delta;
     }
-    
-    private void arrived(){
-        double newx = RandomGenerator.Instance().getRandomNumber()*PropertyManager.Instance().getIntProperty("PIXELSX");
-        double newy = RandomGenerator.Instance().getRandomNumber()*PropertyManager.Instance().getIntProperty("PIXELSY");
+
+    private void arrived() {
+        double newx = RandomGenerator.Instance().getRandomNumber() * PropertyManager.Instance().getIntProperty("PIXELSX");
+        double newy = RandomGenerator.Instance().getRandomNumber() * PropertyManager.Instance().getIntProperty("PIXELSY");
         destination.x = newx;
         destination.y = newy;
-        LoggingManager.logInfo("Mobile Launcher " + id + " has reached its destination: " 
+        LoggingManager.logInfo("Mobile Launcher " + id + " has reached its destination: "
                 + location.toString() + "\nNew destination: ("
                 + destination.toString());
     }

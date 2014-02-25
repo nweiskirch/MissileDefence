@@ -63,7 +63,7 @@ public class Point3D extends Point.Double {
     public void setCoordinates(double xIn, double yIn, double zIn) {
         int xmax = PropertyManager.Instance().getIntProperty("PIXELSX");
         int ymax = PropertyManager.Instance().getIntProperty("PIXELSY");
-        if(xIn < 0 || xIn > xmax || yIn < 0 || yIn > xmax || zIn < 0){
+        if (xIn < 0 || xIn > xmax || yIn < 0 || yIn > xmax || zIn < 0) {
             x = 0;
             y = 0;
             x = 0;
@@ -72,7 +72,7 @@ public class Point3D extends Point.Double {
         x = xIn;
         y = yIn;
         z = zIn;
-        
+
     }
 
     /**

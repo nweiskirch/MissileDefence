@@ -17,9 +17,10 @@ public class DecoyingBallisticInbound extends BallisticInbound {
     private int decoyCount;
 
     /**
-     * Constructs a Decoying Ballistic Inbound Missile
-     * Decoying Ballistic Inbound Missiles will send out decoys if they detect that an
-     * intercepting missile has locked on to them
+     * Constructs a Decoying Ballistic Inbound Missile Decoying Ballistic
+     * Inbound Missiles will send out decoys if they detect that an intercepting
+     * missile has locked on to them
+     *
      * @param locationIn The starting location
      * @param destinationIn The missiles destination
      * @param speedIn The missiles speed
@@ -29,7 +30,7 @@ public class DecoyingBallisticInbound extends BallisticInbound {
      */
     public DecoyingBallisticInbound(Point3D locationIn, Point3D destinationIn, double speedIn, String id, int numDecoys, boolean isDecoy) {
         super(locationIn, destinationIn, speedIn, id, isDecoy);
-        if(numDecoys < 0){
+        if (numDecoys < 0) {
             decoyCount = 0;
             throw new NumberFormatException("Number of Decoys less than 0");
         }
@@ -39,6 +40,7 @@ public class DecoyingBallisticInbound extends BallisticInbound {
 
     /**
      * Called if a lock is detected. The missile will send out decoys
+     *
      * @param point the location of the intercepting missile
      */
     public void lockDetected(Point3D point) {

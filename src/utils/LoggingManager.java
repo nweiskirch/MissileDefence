@@ -14,17 +14,16 @@ import java.io.FileOutputStream;
  *
  * @author Nate
  */
-public class LoggingManager
-{
+public class LoggingManager {
 
     private static Logger logger = null;
     private static boolean initialized = false;
 
-    private static void initialize()
-    {
-        if (initialized) return;
-        try
-        {
+    private static void initialize() {
+        if (initialized) {
+            return;
+        }
+        try {
             logger = Logger.getLogger("SE450");
             HTMLLayout layout = new HTMLLayout();
             layout.setTitle("Application Log File");
@@ -43,9 +42,7 @@ public class LoggingManager
             logger.addAppender(consoleAppender);
             logger.addAppender(htmlFileAppender);
 
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -55,8 +52,7 @@ public class LoggingManager
     /**
      *
      */
-    public static void setDebug()
-    {
+    public static void setDebug() {
         initialize();
         logger.setLevel(Level.DEBUG);
     }
@@ -64,8 +60,7 @@ public class LoggingManager
     /**
      *
      */
-    public static void setInfo()
-    {
+    public static void setInfo() {
         initialize();
         logger.setLevel(Level.INFO);
     }
@@ -73,8 +68,7 @@ public class LoggingManager
     /**
      *
      */
-    public static void setWarn()
-    {
+    public static void setWarn() {
         initialize();
         logger.setLevel(Level.WARN);
     }
@@ -82,8 +76,7 @@ public class LoggingManager
     /**
      *
      */
-    public static void setError()
-    {
+    public static void setError() {
         initialize();
         logger.setLevel(Level.ERROR);
     }
@@ -91,8 +84,7 @@ public class LoggingManager
     /**
      *
      */
-    public static void setFatal()
-    {
+    public static void setFatal() {
         initialize();
         logger.setLevel(Level.FATAL);
     }
@@ -101,8 +93,7 @@ public class LoggingManager
      *
      * @param msg
      */
-    public static void logDebug(String msg)
-    {
+    public static void logDebug(String msg) {
         initialize();
         logger.debug(msg);
     }
@@ -111,8 +102,7 @@ public class LoggingManager
      *
      * @param msg
      */
-    public static void logInfo(String msg)
-    {
+    public static void logInfo(String msg) {
         initialize();
         logger.info(msg);
     }
@@ -121,8 +111,7 @@ public class LoggingManager
      *
      * @param msg
      */
-    public static void logWarn(String msg)
-    {
+    public static void logWarn(String msg) {
         initialize();
         logger.warn(msg);
     }
@@ -131,8 +120,7 @@ public class LoggingManager
      *
      * @param msg
      */
-    public static void logError(String msg)
-    {
+    public static void logError(String msg) {
         initialize();
         logger.error(msg);
     }
@@ -141,10 +129,8 @@ public class LoggingManager
      *
      * @param msg
      */
-    public static void logFatal(String msg)
-    {
+    public static void logFatal(String msg) {
         initialize();
         logger.fatal(msg);
     }
-
 }

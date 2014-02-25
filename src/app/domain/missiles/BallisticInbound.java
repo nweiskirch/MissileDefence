@@ -17,7 +17,9 @@ import utils.PropertyManager;
 import utils.SoundUtility;
 
 /**
- * The basic inbound missile. It will move from its location to its destination and then detonate
+ * The basic inbound missile. It will move from its location to its destination
+ * and then detonate
+ *
  * @author Nate
  */
 public class BallisticInbound implements Displayable {
@@ -26,17 +28,14 @@ public class BallisticInbound implements Displayable {
      * The ID for the missile
      */
     protected final String id;
-
     /**
      * The current location
      */
     protected Point3D location;
-
     /**
      * The missiles destination
      */
     protected Point3D destination;
-
     /**
      * The speed at which it travels
      */
@@ -46,7 +45,8 @@ public class BallisticInbound implements Displayable {
     private boolean isDecoy;
 
     /**
-     *  Creates a Ballistic Inbound Missile based on the given parameters
+     * Creates a Ballistic Inbound Missile based on the given parameters
+     *
      * @param locationIn The start location
      * @param destinationIn The missiles destination
      * @param speedIn The missiles speed
@@ -54,7 +54,7 @@ public class BallisticInbound implements Displayable {
      * @param isDecoy true if the missile is a decoy
      */
     public BallisticInbound(Point3D locationIn, Point3D destinationIn, double speedIn, String id, boolean isDecoy) {
-        if(speedIn < 0){
+        if (speedIn < 0) {
             speed = 0;
             throw new NumberFormatException("Speed less than 0");
         }
@@ -73,14 +73,14 @@ public class BallisticInbound implements Displayable {
     }
 
     /**
-     *  
+     *
      * @return The location of the missile
      */
     public Point3D getLocation() {
         return location;
     }
-    
-    public Point3D getDestination(){
+
+    public Point3D getDestination() {
         return destination;
     }
 
@@ -101,32 +101,34 @@ public class BallisticInbound implements Displayable {
     }
 
     /**
-     * Updates the location of the missile and detonates if it has reached its destination
+     * Updates the location of the missile and detonates if it has reached its
+     * destination
+     *
      * @param millis the time that has passed since the last call to update()
      */
     public void update(double millis) {
-        if(millis < 0){
+        if (millis < 0) {
             millis = 0;
             throw new NumberFormatException("Time less than 0");
         }
-        double distTraveled = speed * millis/1000;
+        double distTraveled = speed * millis / 1000;
         double distToDest = location.distance(destination);
-        if(distToDest == 0){
+        if (distToDest == 0) {
             return;
         }
-        if(distTraveled >= distToDest){
+        if (distTraveled >= distToDest) {
             location = destination;
             arrived();
             return;
         }
         double delta = distTraveled / distToDest;
-        location.x = location.x + (destination.x-location.x)*delta;
-        location.y = location.y + (destination.y-location.y)*delta;
-        location.z = location.z + (destination.z-location.z)*delta;
+        location.x = location.x + (destination.x - location.x) * delta;
+        location.y = location.y + (destination.y - location.y) * delta;
+        location.z = location.z + (destination.z - location.z) * delta;
     }
 
     /**
-     *  The missile will self destruct
+     * The missile will self destruct
      */
     public void selfDestruct() {
         symbol = isDecoy ? "o" : "x";
@@ -160,19 +162,18 @@ public class BallisticInbound implements Displayable {
 
     /**
      * Called when the missile detects an approaching intercepter
+     *
      * @param point the location of the intercepter
      */
     public void lockDetected(Point3D point) {
-        
     }
 
-    private void arrived(){
-        if(isDecoy){
+    private void arrived() {
+        if (isDecoy) {
             symbol = "O";
             SoundUtility.getInstance().playSound("Crunch.wav");
             LoggingManager.logInfo("Decoy " + id + " has reached destination: " + destination.toString());
-        }
-        else{
+        } else {
             applyGroundDamage();
             symbol = "X";
             SoundUtility.getInstance().playSound("Explosion.wav");
@@ -181,7 +182,8 @@ public class BallisticInbound implements Displayable {
         InboundManager.getInstance().removeEntry(this);
         DisplayManager.getInstance().removeContent(this, PropertyManager.Instance().getIntProperty("REMOVALDELAY"));
     }
-    private void applyGroundDamage(){
+
+    private void applyGroundDamage() {
         DetectorManager.getInstance().applyBlastDamage(location);
         LauncherManager.getInstance().applyBlastDamage(location);
     }

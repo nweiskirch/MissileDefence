@@ -1,12 +1,11 @@
 package display.interfaces;
 
-
 /**
- * The ViewFrameListener interface defines the methods that any object implementing the Displayable
- * interface must implement in order to be considered a ViewFrameListener object.
+ * The ViewFrameListener interface defines the methods that any object
+ * implementing the Displayable interface must implement in order to be
+ * considered a ViewFrameListener object.
  */
-public interface ViewFrameListener
-{
+public interface ViewFrameListener {
 
     /**
      *
@@ -40,5 +39,4 @@ public interface ViewFrameListener
      * @param releaseY
      */
     public void acceptRightButtonMouseCommand(int pressX, int pressY, int releaseX, int releaseY);
-
 }

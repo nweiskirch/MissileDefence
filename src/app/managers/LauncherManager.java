@@ -67,20 +67,19 @@ public class LauncherManager {
             targets.put(bi, ins);
         }
     }
-    
-    public void removeFromTarget(BallisticInbound bi, Interceptor in){
-        if(targets.containsKey(bi)){
-            ((ArrayList)targets.get(bi)).remove(in);
+
+    public void removeFromTarget(BallisticInbound bi, Interceptor in) {
+        if (targets.containsKey(bi)) {
+            ((ArrayList) targets.get(bi)).remove(in);
         }
     }
-    
-    public void removeInterceptor(Interceptor i) throws Exception{
-        if(!targets.containsKey(i.getTarget())){
+
+    public void removeInterceptor(Interceptor i) throws Exception {
+        if (!targets.containsKey(i.getTarget())) {
             throw new Exception("Target does not exist");
-        }
-        else{
-            ((ArrayList)targets.get(i.getTarget())).remove(i);
-            if(((ArrayList)targets.get(i.getTarget())).isEmpty()){
+        } else {
+            ((ArrayList) targets.get(i.getTarget())).remove(i);
+            if (((ArrayList) targets.get(i.getTarget())).isEmpty()) {
                 targets.remove(i.getTarget());
             }
         }

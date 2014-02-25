@@ -107,6 +107,9 @@ public abstract class Detector implements Displayable {
      */
     public void destroy() {
         LoggingManager.logInfo("Detector Destroyed, ID = " + id);
+        while(!launchers.isEmpty()){
+            launchers.get(0).destroy();
+        }
         symbol = "%";
         SoundUtility.getInstance().playSound("Argh.wav");
         removeSelf();
@@ -115,29 +118,29 @@ public abstract class Detector implements Displayable {
     public void removeAssociatedLauncher(Launcher l) {
         launchers.remove(l);
     }
-    
+
     public void update(double millis) {
-        if(millis < 0){
+        if (millis < 0) {
             millis = 0;
             throw new NumberFormatException("Time less than 0");
         }
         ArrayList<BallisticInbound> detected = InboundManager.getInstance().detect(this);
-        for(int i = 0; i<detected.size(); i++){
+        for (int i = 0; i < detected.size(); i++) {
             performLaunch(detected.get(i));
         }
-        for(int i = 0; i<launchers.size(); i++){
+        for (int i = 0; i < launchers.size(); i++) {
             launchers.get(i).update(millis);
         }
     }
 
-    protected void performLaunch(BallisticInbound bi){
+    protected void performLaunch(BallisticInbound bi) {
         if (LauncherManager.getInstance().isFullyTargeted(bi) || launchers.isEmpty()) {
             return;
         }
         int numNeeded = PropertyManager.Instance().getIntProperty("MAXTARGETING")
                 - LauncherManager.getInstance().numTargeted(bi);
         int numToLaunch = numNeeded;
-        while (numNeeded>0) {            
+        while (numNeeded > 0) {
             LoggingManager.logInfo("BallisticInbound Detected, Initiating Launch");
             Launcher toLaunch = null;
             int n = 0;
@@ -160,7 +163,7 @@ public abstract class Detector implements Displayable {
                 launchers.remove(toLaunch);
             }
             numNeeded -= numToLaunch;
-            if(numNeeded > 0 && launchers.isEmpty()){
+            if (numNeeded > 0 && launchers.isEmpty()) {
                 break;
             }
         }

@@ -1,23 +1,20 @@
 package display.interfaces;
 
 /**
- * The Display interface defines the methods that any object implementing the Display
- * interface must implement in order to be considered a valid Display.
+ * The Display interface defines the methods that any object implementing the
+ * Display interface must implement in order to be considered a valid Display.
  */
-public interface Display
-{
+public interface Display {
 
+    public void addContent(Displayable d);
 
-	public void addContent(Displayable d);
+    public void removeContent(Displayable d, int delay);
 
-	public void removeContent(Displayable d, int delay);
+    public int contentSize();
 
-	public int contentSize();
+    public void updateDisplay();
 
-	public void updateDisplay();
+    public void setViewFrameListener(ViewFrameListener viewFrameListener);
 
-	public void setViewFrameListener(ViewFrameListener viewFrameListener);
-
-	public void popUpInfo(String msg);
-
+    public void popUpInfo(String msg);
 }

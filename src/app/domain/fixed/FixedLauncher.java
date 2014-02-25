@@ -11,8 +11,9 @@ import utils.Point3D;
  *
  * @author Nate
  */
-public class FixedLauncher extends Launcher{
-    public FixedLauncher(Point3D loc, String idIn, int numPredictors, int numTrackers){
+public class FixedLauncher extends Launcher {
+
+    public FixedLauncher(Point3D loc, String idIn, int numPredictors, int numTrackers) {
         super(loc, idIn, numPredictors, numTrackers);
         symbol = "fl";
         addSelf();
